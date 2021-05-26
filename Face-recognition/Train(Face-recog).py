@@ -10,7 +10,8 @@ from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 import numpy as np
-from glob import glob
+# from glob import glob
+import os
 import matplotlib.pyplot as plt
 
 # re-size all the images to this
@@ -20,7 +21,7 @@ train_path = 'custom-face/train'
 valid_path = 'custom-face/test'
 
 # add preprocessing layer to the front of VGG
-vgg = VGG16(input_shape=IMAGE_SIZE + [3], weights='imagenet', include_top=False)
+vgg = VGG16(input_shape=IMAGE_SIZE + [3], weights='imagenet', include_top=False, classes=4)
 #mob = MobileNetV2(input_shape=IMAGE_SIZE + [3], weights="imagenet", include_top=False)
 # don't train existing weights
 for layer in vgg.layers:
@@ -29,13 +30,14 @@ for layer in vgg.layers:
 
   
   # useful for getting number of classes
-folders = glob('custom-face/train/*')
-  
-print(folders)
+# folders = glob('custom-face/train/*')
+values = os.listdir('custom-face/train/')
+
+print(values)
 # our layers - you can add more if you want
 x = Flatten()(vgg.output)
 # x = Dense(1000, activation='relu')(x)
-prediction = Dense(len(folders), activation='softmax')(x)
+prediction = Dense(len(values), activation='softmax')(x)
 
 # create a model object
 model = Model(inputs=vgg.input, outputs=prediction)

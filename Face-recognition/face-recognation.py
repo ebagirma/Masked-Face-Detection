@@ -71,16 +71,30 @@ print(values)
 #         break
 # video_capture.release()
 # cv2.destroyAllWindows()
-import matplotlib.pyplot as plt
-image = './custom-face/test/81.jpg'
-img = cv2.imread(image)
-img = cv2.resize(img,(244,244))
-img = np.reshape(img,[1,244,244,3])
 
-# x = face_extractor(image)
-# face = cv2.resize(x, (224, 224))
-# im = Image.fromarray(face, 'RGB')
-# # im = './custom-face/test/81.jpg'
-# img_array = np.array(im)
-pred = model.predict(img)
-print(pred)
+for x in os.listdir('./custom-face/test/Elroi/'):
+    image = './custom-face/test/Abeni/' + str(x)
+    print(image)
+    img = cv2.imread(image)
+    # cv2.imshow("I want see you",img)
+    # cv2.waitKey(0)
+    print(type(img))
+    img = cv2.resize(img, (224,224))
+    im = Image.fromarray(img, 'RGB')
+    img_array = np.array(im)
+    # x = face_extractor(image)
+    # face = cv2.resize(x, (224, 224))
+    # im = Image.fromarray(face, 'RGB')
+    # # im = './custom-face/test/81.jpg'
+    # img_array = np.array(im)
+    img_array = np.expand_dims(img_array, axis=0)
+    pred = model.predict(img_array)
+    print(pred)
+    max = int(np.argmax(pred, axis=1))
+    print(max)
+    print(pred[0][max])
+    name="None matching"
+
+    # if(pred[0][max] >0.5):
+    name= str(values[max])
+    print(name)

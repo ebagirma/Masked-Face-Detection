@@ -3,8 +3,8 @@ from keras.models import Model
 from keras.applications.vgg16 import VGG16
 from keras.applications.vgg16 import preprocess_input
 
-from keras.preprocessing.image import ImageDataGenerator
-from keras.applications import MobileNetV2
+# from keras.preprocessing.image import ImageDataGenerator
+# from keras.applications import MobileNetV2
 
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
